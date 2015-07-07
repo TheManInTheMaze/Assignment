@@ -58,6 +58,17 @@ public class GridTest {
         return cntMines;
     }
 
+    @Test
+    public void clic() throws Exception {
+        Grid grid = new Grid(3, 3, 2);
+
+        assertNull(grid.clic(-1, 1));
+        assertNull(grid.clic(1, -1));
+        assertNull(grid.clic(3, 2));
+        assertNull(grid.clic(2, 3));
+
+
+    }
 
     @Test
     public void testFirstClic() throws Exception {

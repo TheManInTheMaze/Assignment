@@ -89,7 +89,7 @@ public class Grid implements IGrid {
     //todo
     private void assignNumbersToSquares() {
     }
-    
+
     public GameStatus clic(int xPos, int yPos) {
         if (status.equals(GameStatus.STARTED)) {
             return firstClic(xPos, yPos);

@@ -61,6 +61,7 @@ public class Grid implements IGrid {
 
     private GameStatus firstClic(int xPos, int yPos) {
         placeMines(xPos, yPos);
+        status = GameStatus.ONGOING;
         return clic(xPos, yPos);
     }
 

@@ -10,6 +10,12 @@ public interface ISquare {
 
     void setMine(boolean mine);
 
+    SquareStatus getStatus();
+
+    void setStatus(SquareStatus status);
+
+    int getAdjacentMines();
+
 
     enum SquareStatus {
         REVEALED, COVERED, EXPLODED

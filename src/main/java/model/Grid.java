@@ -22,6 +22,30 @@ public class Grid implements IGrid {
 
     }
 
+    public GameStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(GameStatus status) {
+        this.status = status;
+    }
+
+    public ISquare[][] getGrid() {
+        return grid;
+    }
+
+    public void setGrid(ISquare[][] grid) {
+        this.grid = grid;
+    }
+
+    public int getNbMines() {
+        return nbMines;
+    }
+
+    public void setNbMines(int nbMines) {
+        this.nbMines = nbMines;
+    }
+
     //todo
     private GameStatus firstClic(int xPos, int yPos) {
 

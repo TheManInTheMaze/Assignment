@@ -54,6 +54,11 @@ public class Grid implements IGrid {
         this.nbMines = nbMines;
     }
 
+    private boolean isInField(int xPos, int yPos) {
+        return xPos >= 0 && yPos < ySize && yPos >= 0 && xPos < xSize;
+
+    }
+
     //todo
     private GameStatus firstClic(int xPos, int yPos) {
         placeMines(xPos, yPos);
@@ -77,13 +82,32 @@ public class Grid implements IGrid {
         }
     }
 
-    //todo
     private void revealGrid(int xPos, int yPos) {
-
+        for (int i = xPos - 1; i <= xPos + 1; i++)
+            for (int j = yPos - 1; j <= yPos + 1; j++) {
+                if (isInField(i, j) && !(i == xPos && j == yPos)) {
+                    ISquare square = grid[j][i];
+                    if (square.getStatus() == ISquare.SquareStatus.COVERED) {
+                        square.setStatus(ISquare.SquareStatus.REVEALED);
+                        if (square.getAdjacentMines() == 0)
+                            revealGrid(i, j);
+                    }
+                }
+            }
     }
 
-    //todo
     private void checkGameWon() {
+        int countCovered = 0;
+        for (ISquare[] rows : grid) {
+            for (ISquare square : rows) {
+                if (square.getStatus() == ISquare.SquareStatus.COVERED) {
+                    countCovered++;
+                }
+            }
+        }
+        if (countCovered == nbMines) {
+            status = GameStatus.WIN;
+        }
     }
 
     //todo
@@ -91,6 +115,7 @@ public class Grid implements IGrid {
     }
 
     public GameStatus clic(int xPos, int yPos) {
+        if (!isInField(xPos, yPos)) return null;
         if (status.equals(GameStatus.STARTED)) {
             return firstClic(xPos, yPos);
         }

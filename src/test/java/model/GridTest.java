@@ -50,7 +50,7 @@ public class GridTest {
         int cntMines = 0;
         for (Square[] rows : actualGrid) {
             for (Square square : rows) {
-                if (square.isHasMine()) {
+                if (square.hasMine()) {
                     cntMines++;
                 }
             }
@@ -155,7 +155,7 @@ public class GridTest {
             for (String square : squares) {
                 ret[irow][icolumn] = new Square(irow, icolumn);
                 if (square.equals("*")) {
-                    ret[irow][icolumn].setHasMine(true);
+                    ret[irow][icolumn].setMine(true);
                 } else if (square.equals("r")) {
                     ret[irow][icolumn].setStatus(ISquare.SquareStatus.REVEALED);
                 }

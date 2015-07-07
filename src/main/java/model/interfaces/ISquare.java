@@ -6,6 +6,10 @@ package model.interfaces;
 public interface ISquare {
     SquareStatus clic();
 
+    boolean hasMine();
+
+    void setMine(boolean mine);
+
 
     enum SquareStatus {
         REVEALED, COVERED, EXPLODED

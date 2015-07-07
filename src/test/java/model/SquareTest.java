@@ -14,12 +14,13 @@ public class SquareTest extends TestCase {
     @Test
     public void testClic() throws Exception {
 
+
         assertSame(square.clic(), ISquare.SquareStatus.REVEALED);
         //status should stay the same
         assertSame(square.clic(), ISquare.SquareStatus.REVEALED);
 
         square.setStatus(ISquare.SquareStatus.COVERED);
-        square.setHasMine(true);
+        square.setMine(true);
         assertSame(square.clic(), ISquare.SquareStatus.EXPLODED);
         //status should stay the same
         assertSame(square.clic(), ISquare.SquareStatus.EXPLODED);

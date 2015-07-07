@@ -35,11 +35,11 @@ public class Square implements ISquare {
         this.yPos = yPos;
     }
 
-    public boolean isHasMine() {
+    public boolean hasMine() {
         return hasMine;
     }
 
-    public void setHasMine(boolean hasMine) {
+    public void setMine(boolean mine) {
         this.hasMine = hasMine;
     }
 
@@ -75,5 +75,6 @@ public class Square implements ISquare {
         return status;
 
     }
+
 
 }

@@ -13,6 +13,7 @@ public class Grid implements IGrid {
     private IGrid.GameStatus status = IGrid.GameStatus.STARTED;
 
     public Grid(int xSize, int ySize, int nbMines) {
+        grid = new Square[ySize][xSize];
         this.nbMines = nbMines;
         for (int i = 0; i < xSize; i++) {
             for (int j = 0; j < ySize; j++) {

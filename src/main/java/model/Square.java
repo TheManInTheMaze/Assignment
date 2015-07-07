@@ -40,7 +40,7 @@ public class Square implements ISquare {
     }
 
     public void setMine(boolean mine) {
-        this.hasMine = hasMine;
+        this.hasMine = mine;
     }
 
     public SquareStatus getStatus() {

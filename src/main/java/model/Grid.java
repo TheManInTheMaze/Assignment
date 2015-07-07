@@ -3,6 +3,8 @@ package model;
 import model.interfaces.IGrid;
 import model.interfaces.ISquare;
 
+import java.util.Random;
+
 /**
  * Created by pcorentin on 07/07/2015.
  */
@@ -11,8 +13,11 @@ public class Grid implements IGrid {
     private ISquare[][] grid;
     private int nbMines;
     private IGrid.GameStatus status = IGrid.GameStatus.STARTED;
+    private int xSize, ySize;
 
     public Grid(int xSize, int ySize, int nbMines) {
+        this.ySize = ySize;
+        this.xSize = xSize;
         grid = new Square[ySize][xSize];
         this.nbMines = nbMines;
         for (int i = 0; i < xSize; i++) {
@@ -56,9 +61,21 @@ public class Grid implements IGrid {
         return clic(xPos, yPos);
     }
 
-    //todo
-    private void placeMines() {
 
+    private void placeMines(int xPos, int yPos) {
+        int nbPlacedMines = 0;
+        Random random = new Random();
+        while (nbPlacedMines < nbMines) {
+            int numCase = random.nextInt(xSize * ySize);
+            int x = numCase % xSize;
+            int y = numCase / xSize;
+            if (x == xPos && y == yPos) continue;
+            ISquare square = grid[y][x];
+            if (!square.hasMine()) {
+                square.setMine(true);
+                nbPlacedMines++;
+            }
+        }
     }
 
     //todo

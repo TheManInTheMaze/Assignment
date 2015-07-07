@@ -35,6 +35,19 @@ public class Grid implements IGrid {
     }
 
     //todo
+    private void revealGrid(int xPos, int yPos) {
+
+    }
+
+    //todo
+    private void checkGameWon() {
+    }
+
+    //todo
+    private void assignNumbersToSquares() {
+    }
+
+    //todo
     public GameStatus clic(int xPos, int yPos) {
         return status;
     }

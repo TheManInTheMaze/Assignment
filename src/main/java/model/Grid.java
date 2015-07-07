@@ -16,6 +16,7 @@ public class Grid implements IGrid {
     private int xSize, ySize;
 
     public Grid(int xSize, int ySize, int nbMines) {
+        if (xSize < 0 || ySize < 0 || nbMines < 0) throw new IndexOutOfBoundsException("Wrong grid parameters");
         this.ySize = ySize;
         this.xSize = xSize;
         grid = new Square[ySize][xSize];

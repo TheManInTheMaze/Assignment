@@ -59,7 +59,6 @@ public class Grid implements IGrid {
 
     }
 
-    //todo
     private GameStatus firstClic(int xPos, int yPos) {
         placeMines(xPos, yPos);
         return clic(xPos, yPos);
@@ -110,8 +109,25 @@ public class Grid implements IGrid {
         }
     }
 
-    //todo
+
     private void assignNumbersToSquares() {
+        for (int i = 0; i < xSize; i++) {
+            for (int j = 0; j < ySize; j++) {
+                assignNumbersToSquares(i, j);
+            }
+        }
+    }
+
+    private void assignNumbersToSquares(int xPos, int yPos) {
+        int nbAdjMines = 0;
+        for (int i = xPos - 1; i <= xPos + 1; i++)
+            for (int j = yPos - 1; j <= yPos + 1; j++) {
+                if (isInField(i, j) && !(i == xPos && j == yPos)) {
+                    if (grid[i][j].hasMine())
+                        nbAdjMines++;
+                }
+            }
+        grid[xPos][yPos].setAdjacentMines(nbAdjMines);
     }
 
     public GameStatus clic(int xPos, int yPos) {

@@ -11,7 +11,7 @@ public class Square implements ISquare {
     private ISquare.SquareStatus status = ISquare.SquareStatus.COVERED;
     private int adjacentMines = 0;
 
-    public Square(int xPos, int yPos) {
+    public Square(int yPos, int xPos) {
         this.xPos = xPos;
         this.yPos = yPos;
     }

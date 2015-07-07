@@ -17,7 +17,7 @@ public class Grid implements IGrid {
         this.nbMines = nbMines;
         for (int i = 0; i < xSize; i++) {
             for (int j = 0; j < ySize; j++) {
-                grid[j][i] = new Square(i, j);
+                grid[j][i] = new Square(j, i);
             }
         }
 
@@ -37,6 +37,8 @@ public class Grid implements IGrid {
 
     public void setGrid(ISquare[][] grid) {
         this.grid = grid;
+        assignNumbersToSquares();
+
     }
 
     public int getNbMines() {
@@ -74,6 +76,9 @@ public class Grid implements IGrid {
 
     //todo
     public GameStatus clic(int xPos, int yPos) {
+        if (status.equals(GameStatus.STARTED)) {
+            return firstClic(xPos, yPos);
+        }
         return status;
     }
 }

@@ -56,12 +56,11 @@ public class Grid implements IGrid {
 
     //todo
     private GameStatus firstClic(int xPos, int yPos) {
-
-        placeMines();
+        placeMines(xPos, yPos);
         return clic(xPos, yPos);
     }
 
-
+    // CAN BE SLOW IF MANY MINES TO PLACE
     private void placeMines(int xPos, int yPos) {
         int nbPlacedMines = 0;
         Random random = new Random();
@@ -90,12 +89,18 @@ public class Grid implements IGrid {
     //todo
     private void assignNumbersToSquares() {
     }
-
-    //todo
+    
     public GameStatus clic(int xPos, int yPos) {
         if (status.equals(GameStatus.STARTED)) {
             return firstClic(xPos, yPos);
         }
+        ISquare.SquareStatus squareStatus = grid[yPos][xPos].clic();
+        if (squareStatus == ISquare.SquareStatus.EXPLODED) {
+            status = GameStatus.FAIL;
+            return status;
+        }
+        revealGrid(xPos, yPos);
+        checkGameWon();
         return status;
     }
 }

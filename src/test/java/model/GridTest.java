@@ -172,6 +172,7 @@ public class GridTest {
                 }
                 icolumn++;
             }
+            icolumn = 0;
             irow++;
         }
         return ret;

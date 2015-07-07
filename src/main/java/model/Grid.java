@@ -23,21 +23,19 @@ public class Grid implements IGrid {
     }
 
     //todo
-    private void firstClic(int xPos, int yPos) {
+    private GameStatus firstClic(int xPos, int yPos) {
 
         placeMines();
-
-
+        return clic(xPos, yPos);
     }
 
     //todo
     private void placeMines() {
 
-
     }
 
     //todo
-    public GameStatus clic(int xCoor, int yCoor) {
+    public GameStatus clic(int xPos, int yPos) {
         return status;
     }
 }

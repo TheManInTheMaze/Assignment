@@ -127,19 +127,25 @@ public class GridTest {
                 ". * .\n" +
                 "* . .\n" +
                 ". . .\n");
-        Grid grid = new Grid(3, 3, 0);
+        Grid grid = new Grid(3, 3, 2);
         grid.setGrid(initialState);
 
 
         Square[][] secondState = createGridFromText("" +
-                ". * r\n" +
-                "* r r\n" +
-                "r r r\n");
+                ". * .\n" +
+                "* r .\n" +
+                ". . .\n");
 
-        assertSame(grid.clic(1, 1), IGrid.GameStatus.ONGOING);
+        assertSame(IGrid.GameStatus.ONGOING, grid.clic(1, 1));
         assertTrue(compareSquares(grid.getGrid(), secondState));
 
-        assertSame(grid.clic(0, 0), IGrid.GameStatus.WIN);
+        assertSame(IGrid.GameStatus.ONGOING, grid.clic(2, 2));
+        Square[][] thirdState = createGridFromText("" +
+                ". * .\n" +
+                "* r .\n" +
+                ". . r\n");
+        assertTrue(compareSquares(grid.getGrid(), thirdState));
+        assertSame(IGrid.GameStatus.WIN, grid.clic(0, 0));
 
     }
 
@@ -150,29 +156,30 @@ public class GridTest {
                 ". * .\n" +
                 ". * .\n" +
                 ". * .\n");
-        Grid grid = new Grid(3, 3, 0);
+        Grid grid = new Grid(3, 3, 3);
         grid.setGrid(initialState);
 
 
         Square[][] secondState = createGridFromText("" +
                 ". * r\n" +
-                ". * r\n" +
-                ". * r\n");
+                ". * .\n" +
+                ". * .\n");
 
-        assertSame(grid.clic(0, 2), IGrid.GameStatus.ONGOING);
+        assertSame(IGrid.GameStatus.ONGOING, grid.clic(0, 2));
         assertTrue(compareSquares(grid.getGrid(), secondState));
 
-        assertSame(grid.clic(1, 1), IGrid.GameStatus.FAIL);
+        assertSame(IGrid.GameStatus.FAIL, grid.clic(1, 1));
 
     }
 
-    private boolean compareSquares(ISquare[][] grid, Square[][] secondState) {
+    private boolean compareSquares(ISquare[][] grid, ISquare[][] secondState) {
         if (grid.length != secondState.length) return false;
-        if (grid.length != 0 && secondState.length != 0 && grid[0].length != secondState[0].length)
+        System.out.print("ok");
+        if (grid.length != 0 && grid[0].length != secondState[0].length)
             return false;
+        System.out.print("ok");
         for (int j = 0; j < grid.length; j++) {
             for (int i = 0; i < grid[0].length; i++) {
-                System.out.print(grid[j][i].getStatus());
                 if (grid[j][i].getStatus() != secondState[j][i].getStatus())
                     return false;
             }

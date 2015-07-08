@@ -143,7 +143,8 @@ public class Grid implements IGrid {
             status = GameStatus.FAIL;
             return status;
         }
-        revealGrid(xPos, yPos);
+        if (grid[yPos][xPos].getAdjacentMines() == 0)
+            revealGrid(xPos, yPos);
         checkGameWon();
         return status;
     }

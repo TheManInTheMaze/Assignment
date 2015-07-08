@@ -48,12 +48,14 @@ public class Grid implements IGrid {
                 }
                 icolumn++;
             }
-            xSize = icolumn;
+            this.xSize = icolumn;
             icolumn = 0;
             irow++;
         }
-        ySize = irow;
+        this.ySize = irow;
         assignNumbersToSquares();
+        this.nbMines = nbMines;
+        this.status = GameStatus.ONGOING;
 
     }
 
@@ -116,6 +118,7 @@ public class Grid implements IGrid {
             for (int j = yPos - 1; j <= yPos + 1; j++) {
                 if (isInField(i, j) && !(i == xPos && j == yPos)) {
                     ISquare square = grid[j][i];
+                    if (square.hasMine()) return;
                     if (square.getStatus() == ISquare.SquareStatus.COVERED) {
                         square.setStatus(ISquare.SquareStatus.REVEALED);
                         if (square.getAdjacentMines() == 0)
@@ -156,6 +159,7 @@ public class Grid implements IGrid {
                         nbAdjMines++;
                 }
             }
+        System.out.print(nbAdjMines);
         grid[xPos][yPos].setAdjacentMines(nbAdjMines);
     }
 
@@ -200,10 +204,8 @@ public class Grid implements IGrid {
     public boolean compareTo(IGrid field) {
         ISquare[][] secondState = field.getGrid();
         if (grid.length != secondState.length) return false;
-        System.out.print("ok");
         if (grid.length != 0 && grid[0].length != secondState[0].length)
             return false;
-        System.out.print("ok");
         for (int j = 0; j < grid.length; j++) {
             for (int i = 0; i < grid[0].length; i++) {
                 if (grid[j][i].getStatus() != secondState[j][i].getStatus())

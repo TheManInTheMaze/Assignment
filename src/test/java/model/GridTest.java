@@ -128,7 +128,6 @@ public class GridTest {
                 "* . .\n" +
                 ". . .\n");
 
-
         IGrid secondState = new Grid("" +
                 ". * .\n" +
                 "* r .\n" +
@@ -152,19 +151,21 @@ public class GridTest {
 
     @Test
     public void testLosingGame() throws Exception {
-        IGrid initialState = new Grid("" +
+        IGrid grid = new Grid("" +
                 ". * .\n" +
                 ". * .\n" +
                 ". * .\n");
-        Grid grid = new Grid(3, 3, 3);
+
 
 
         IGrid secondState = new Grid("" +
-                ". * r\n" +
                 ". * .\n" +
-                ". * .\n");
+                ". * .\n" +
+                "r * .\n");
 
         assertSame(IGrid.GameStatus.ONGOING, grid.clic(0, 2));
+        System.out.print(grid.toString());
+
         assertTrue(grid.compareTo(secondState));
         assertSame(IGrid.GameStatus.FAIL, grid.clic(1, 1));
 

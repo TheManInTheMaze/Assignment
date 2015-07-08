@@ -4,9 +4,13 @@ import config.ConfigTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
+
+import static org.junit.Assert.assertSame;
+
 
 /**
  * Created by pcorentin on 09/07/2015.
@@ -21,7 +25,11 @@ public class GameApiServiceTest {
 
     @Test
     public void testStartGame() throws Exception {
-        assert (false);
+
+        assertSame(HttpStatus.BAD_REQUEST, service.startGame(-1, 1, 1));
+        assertSame(HttpStatus.BAD_REQUEST, service.startGame(1, -1, 1));
+        assertSame(HttpStatus.BAD_REQUEST, service.startGame(3, 3, -1));
+        assertSame(HttpStatus.BAD_REQUEST, service.startGame(3, 3, 10));
 
     }
 

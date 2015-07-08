@@ -6,6 +6,9 @@ package model.interfaces;
 public interface IGrid {
     GameStatus clic(int xPos, int yPos);
 
+    boolean compareTo(IGrid grid);
+
+    ISquare[][] getGrid();
     enum GameStatus {
         STARTED, ONGOING, WIN, FAIL
     }

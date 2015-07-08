@@ -30,6 +30,33 @@ public class Grid implements IGrid {
 
     }
 
+    public Grid(String input) {
+        String[] rows = input.split("\n");
+        int icolumn = 0;
+        int irow = 0;
+        int nbMines = 0;
+        for (String row : rows) {
+            String[] squares = row.split(" ");
+            if (grid == null) grid = new Square[rows.length][squares.length];
+            for (String square : squares) {
+                grid[irow][icolumn] = new Square(irow, icolumn);
+                if (square.equals("*")) {
+                    grid[irow][icolumn].setMine(true);
+                    nbMines++;
+                } else if (square.equals("r")) {
+                    grid[irow][icolumn].setStatus(ISquare.SquareStatus.REVEALED);
+                }
+                icolumn++;
+            }
+            xSize = icolumn;
+            icolumn = 0;
+            irow++;
+        }
+        ySize = irow;
+        assignNumbersToSquares();
+
+    }
+
     public GameStatus getStatus() {
         return status;
     }
@@ -112,7 +139,6 @@ public class Grid implements IGrid {
         }
     }
 
-
     private void assignNumbersToSquares() {
         for (int i = 0; i < xSize; i++) {
             for (int j = 0; j < ySize; j++) {
@@ -148,4 +174,43 @@ public class Grid implements IGrid {
         checkGameWon();
         return status;
     }
+
+    public String toString() {
+        StringBuilder ret = new StringBuilder();
+        for (ISquare[] rows : grid) {
+            for (ISquare square : rows) {
+                switch (square.getStatus()) {
+                    case COVERED:
+                        if (square.hasMine()) ret.append("*");
+                        else ret.append(".");
+                        break;
+                    case REVEALED:
+                        ret.append("r");
+                        break;
+
+                }
+                ret.append(" ");
+            }
+            ret.append("\n");
+        }
+        return ret.toString();
+
+    }
+
+    public boolean compareTo(IGrid field) {
+        ISquare[][] secondState = field.getGrid();
+        if (grid.length != secondState.length) return false;
+        System.out.print("ok");
+        if (grid.length != 0 && grid[0].length != secondState[0].length)
+            return false;
+        System.out.print("ok");
+        for (int j = 0; j < grid.length; j++) {
+            for (int i = 0; i < grid[0].length; i++) {
+                if (grid[j][i].getStatus() != secondState[j][i].getStatus())
+                    return false;
+            }
+        }
+        return true;
+    }
+
 }

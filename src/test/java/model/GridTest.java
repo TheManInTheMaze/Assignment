@@ -123,28 +123,28 @@ public class GridTest {
 
     @Test
     public void testWinningGame() throws Exception {
-        Square[][] initialState = createGridFromText("" +
+        IGrid grid = new Grid("" +
                 ". * .\n" +
                 "* . .\n" +
                 ". . .\n");
-        Grid grid = new Grid(3, 3, 2);
-        grid.setGrid(initialState);
 
 
-        Square[][] secondState = createGridFromText("" +
+        IGrid secondState = new Grid("" +
                 ". * .\n" +
                 "* r .\n" +
                 ". . .\n");
 
         assertSame(IGrid.GameStatus.ONGOING, grid.clic(1, 1));
-        assertTrue(compareSquares(grid.getGrid(), secondState));
+        assertTrue(grid.compareTo(secondState));
 
         assertSame(IGrid.GameStatus.ONGOING, grid.clic(2, 2));
-        Square[][] thirdState = createGridFromText("" +
+        IGrid thirdState = new Grid("" +
                 ". * .\n" +
-                "* r .\n" +
-                ". . r\n");
-        assertTrue(compareSquares(grid.getGrid(), thirdState));
+                "* r r\n" +
+                ". r r\n");
+        assertTrue(grid.compareTo(thirdState));
+        assertSame(IGrid.GameStatus.ONGOING, grid.clic(0, 2));
+        assertSame(IGrid.GameStatus.ONGOING, grid.clic(2, 0));
         assertSame(IGrid.GameStatus.WIN, grid.clic(0, 0));
 
     }
@@ -152,50 +152,34 @@ public class GridTest {
 
     @Test
     public void testLosingGame() throws Exception {
-        Square[][] initialState = createGridFromText("" +
+        IGrid initialState = new Grid("" +
                 ". * .\n" +
                 ". * .\n" +
                 ". * .\n");
         Grid grid = new Grid(3, 3, 3);
-        grid.setGrid(initialState);
 
 
-        Square[][] secondState = createGridFromText("" +
+        IGrid secondState = new Grid("" +
                 ". * r\n" +
                 ". * .\n" +
                 ". * .\n");
 
         assertSame(IGrid.GameStatus.ONGOING, grid.clic(0, 2));
-        assertTrue(compareSquares(grid.getGrid(), secondState));
-
+        assertTrue(grid.compareTo(secondState));
         assertSame(IGrid.GameStatus.FAIL, grid.clic(1, 1));
 
     }
 
-    private boolean compareSquares(ISquare[][] grid, ISquare[][] secondState) {
-        if (grid.length != secondState.length) return false;
-        System.out.print("ok");
-        if (grid.length != 0 && grid[0].length != secondState[0].length)
-            return false;
-        System.out.print("ok");
-        for (int j = 0; j < grid.length; j++) {
-            for (int i = 0; i < grid[0].length; i++) {
-                if (grid[j][i].getStatus() != secondState[j][i].getStatus())
-                    return false;
-            }
-        }
-        return true;
-    }
+
 
     @Test
     public void testSquareNumbers() {
-        Square[][] initialState = createGridFromText("" +
+        IGrid grid = new Grid("" +
                 ". * .\n" +
                 "* . .\n" +
                 ". . .\n");
-        Grid grid = new Grid(3, 3, 0);
-        grid.setGrid(initialState);
 
+        ISquare[][] initialState = grid.getGrid();
         assertEquals(2, initialState[0][0].getAdjacentMines());
         assertEquals(1, initialState[0][1].getAdjacentMines());
         assertEquals(1, initialState[0][2].getAdjacentMines());
@@ -211,30 +195,7 @@ public class GridTest {
 
     }
 
-    private Square[][] createGridFromText(String input) {
-        Square[][] ret = null;
-        String[] rows = input.split("\n");
-        int icolumn = 0;
-        int irow = 0;
-        for (String row : rows) {
-            String[] squares = row.split(" ");
-            if (ret == null) ret = new Square[rows.length][squares.length];
-            for (String square : squares) {
-                ret[irow][icolumn] = new Square(irow, icolumn);
-                if (square.equals("*")) {
-                    ret[irow][icolumn].setMine(true);
-                } else if (square.equals("r")) {
-                    ret[irow][icolumn].setStatus(ISquare.SquareStatus.REVEALED);
-                }
-                icolumn++;
-            }
-            icolumn = 0;
-            irow++;
-        }
-        return ret;
 
-
-    }
 
 
 }

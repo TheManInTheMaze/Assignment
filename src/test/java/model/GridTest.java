@@ -13,8 +13,7 @@ public class GridTest {
     private final int MAXROWSIZE = 10;
     private final int MAXCOLUMNSIZE = 10;
 
-
-
+ 
     @Test
     public void testGetGrid() throws Exception {
 
@@ -164,7 +163,6 @@ public class GridTest {
                 "r * .\n");
 
         assertSame(IGrid.GameStatus.ONGOING, grid.clic(0, 2));
-        System.out.print(grid.toString());
 
         assertTrue(grid.compareTo(secondState));
         assertSame(IGrid.GameStatus.FAIL, grid.clic(1, 1));

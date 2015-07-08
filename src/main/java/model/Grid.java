@@ -159,7 +159,6 @@ public class Grid implements IGrid {
                         nbAdjMines++;
                 }
             }
-        System.out.print(nbAdjMines);
         grid[xPos][yPos].setAdjacentMines(nbAdjMines);
     }
 

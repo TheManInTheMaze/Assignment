@@ -59,7 +59,6 @@ public class Square implements ISquare {
         this.adjacentMines = adjacentMines;
     }
 
-    //todo
     public SquareStatus clic() {
         if (this.hasMine) {
             status = SquareStatus.EXPLODED;

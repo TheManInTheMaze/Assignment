@@ -20,9 +20,9 @@ Clone this repo and execute from inside the directory:
   
 ##HOW TO RUN THE PROJECT
  * java -jar target/com.assignment-1.0-SNAPSHOT.one-jar.jar
- *  Hit enter to terminate server
  * curl --data "xSize=3&ySize=3&nbMines=2" http://localhost:8080/game/api/minesweep  (game start)
  * curl http://localhost:8080/game/api/minesweep?xPos=1&yPos=1 (game click)
+ * Hit enter to terminate server
 
 
 

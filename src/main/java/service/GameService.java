@@ -10,13 +10,23 @@ public class GameService {
 
     private IGrid grid;
 
-    public IGrid newGame(int xSize, int ySize, int nbMines) {
-        grid = new Grid(xSize, ySize, nbMines);
-        return grid;
+    public ResponseWrapper newGame(int xSize, int ySize, int nbMines) {
+        try {
+            grid = new Grid(xSize, ySize, nbMines);
+        } catch (IndexOutOfBoundsException ex) {
+            return new ResponseWrapper(null, "500");
+        }
+        return new ResponseWrapper(grid, "200");
     }
 
-    public IGrid clic(int xPos, int yPos) {
-        grid.clic(xPos, yPos);
-        return grid;
+    public ResponseWrapper clic(int xPos, int yPos) {
+        try {
+            grid.clic(xPos, yPos);
+        } catch (IndexOutOfBoundsException ex) {
+            return new ResponseWrapper(grid, "500");
+        } catch (NullPointerException ex) {
+            return new ResponseWrapper(grid, "503");
+        }
+        return new ResponseWrapper(grid, "200");
     }
 }

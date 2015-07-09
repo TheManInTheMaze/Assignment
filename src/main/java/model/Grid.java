@@ -163,7 +163,7 @@ public class Grid implements IGrid {
     }
 
     public GameStatus clic(int xPos, int yPos) {
-        if (!isInField(xPos, yPos)) return null;
+        if (!isInField(xPos, yPos)) throw new IndexOutOfBoundsException("Wrong grid parameters");
         if (status.equals(GameStatus.STARTED)) {
             return firstClic(xPos, yPos);
         }

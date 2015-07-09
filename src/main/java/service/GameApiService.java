@@ -1,7 +1,5 @@
 package service;
 
-import model.interfaces.IGrid;
-
 import javax.inject.Inject;
 import javax.ws.rs.*;
 
@@ -16,7 +14,7 @@ public class GameApiService {
 
     @Produces({"application/json"})
     @POST
-    public IGrid startGame(@FormParam("xSize") @DefaultValue("3") final int xSize,
+    public ResponseWrapper startGame(@FormParam("xSize") @DefaultValue("3") final int xSize,
                            @FormParam("ySize") @DefaultValue("3") final int ySize,
                            @FormParam("nbMines") @DefaultValue("3") final int nbMines) {
         return gameService.newGame(xSize, ySize, nbMines);
@@ -24,7 +22,7 @@ public class GameApiService {
 
     @Produces({"application/json"})
     @GET
-    public IGrid clic(@QueryParam("xPos") @DefaultValue("-1") final int xPos,
+    public ResponseWrapper clic(@QueryParam("xPos") @DefaultValue("-1") final int xPos,
                       @QueryParam("yPos") @DefaultValue("-1") final int yPos) {
 
         return gameService.clic(xPos, yPos);

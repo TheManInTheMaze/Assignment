@@ -96,24 +96,45 @@ public class GridTest {
     public void clic() throws Exception {
         Grid grid = new Grid(3, 3, 2);
 
-        assertNull(grid.clic(-1, 1));
-        assertNull(grid.clic(1, -1));
-        assertNull(grid.clic(3, 2));
-        assertNull(grid.clic(2, 3));
+        try {
+            grid.clic(-1, 1);
+            fail();
+        } catch (IndexOutOfBoundsException e) {
+
+        }
+        try {
+            grid.clic(1, -1);
+            fail();
+        } catch (IndexOutOfBoundsException e) {
+
+        }
+        try {
+            grid.clic(3, 1);
+            fail();
+        } catch (IndexOutOfBoundsException e) {
+
+        }
+        try {
+            grid.clic(1, 3);
+            fail();
+        } catch (IndexOutOfBoundsException e) {
+
+        }
+
 
 
     }
 
     @Test
     public void testFirstClic() throws Exception {
-        Grid grid = new Grid(3, 3, 2);
+        Grid grid = new Grid(3, 3, 8);
         assertSame(IGrid.GameStatus.STARTED, grid.getStatus());
 
         Square[][] actualGrid = (Square[][]) grid.getGrid();
         int previousCntMines = getCntMines(actualGrid);
 
         // WE SHALL NEVER LOOSE ON FIRST CLIC
-        assertSame(IGrid.GameStatus.ONGOING, grid.clic(1, 1));
+        assertSame(IGrid.GameStatus.WIN, grid.clic(1, 1));
         assertNotEquals(previousCntMines, actualGrid);
 
 

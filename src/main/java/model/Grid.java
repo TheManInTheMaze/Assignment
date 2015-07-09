@@ -1,6 +1,5 @@
 package model;
 
-import model.exceptions.WrongParameterException;
 import model.interfaces.IGrid;
 import model.interfaces.ISquare;
 
@@ -16,9 +15,9 @@ public class Grid implements IGrid {
     private IGrid.GameStatus status = IGrid.GameStatus.STARTED;
     private int xSize, ySize;
 
-    public Grid(int xSize, int ySize, int nbMines) throws WrongParameterException {
+    public Grid(int xSize, int ySize, int nbMines) {
         if (xSize <= 0 || ySize <= 0 || nbMines < 0 || nbMines >= xSize * ySize)
-            throw new WrongParameterException("Wrong grid parameters");
+            throw new IndexOutOfBoundsException("Wrong grid parameters");
         this.ySize = ySize;
         this.xSize = xSize;
         grid = new Square[ySize][xSize];
@@ -91,7 +90,7 @@ public class Grid implements IGrid {
 
     }
 
-    private GameStatus firstClic(int xPos, int yPos) throws WrongParameterException {
+    private GameStatus firstClic(int xPos, int yPos) {
         placeMines(xPos, yPos);
         status = GameStatus.ONGOING;
         return clic(xPos, yPos);
@@ -163,8 +162,8 @@ public class Grid implements IGrid {
         grid[xPos][yPos].setAdjacentMines(nbAdjMines);
     }
 
-    public GameStatus clic(int xPos, int yPos) throws WrongParameterException {
-        if (!isInField(xPos, yPos)) throw new WrongParameterException("Bad Argument");
+    public GameStatus clic(int xPos, int yPos) {
+        if (!isInField(xPos, yPos)) return null;
         if (status.equals(GameStatus.STARTED)) {
             return firstClic(xPos, yPos);
         }

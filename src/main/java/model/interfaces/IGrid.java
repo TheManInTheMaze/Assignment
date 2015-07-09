@@ -9,6 +9,9 @@ public interface IGrid {
     boolean compareTo(IGrid grid);
 
     ISquare[][] getGrid();
+
+    GameStatus getStatus();
+
     enum GameStatus {
         STARTED, ONGOING, WIN, FAIL
     }

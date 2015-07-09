@@ -9,7 +9,7 @@ import org.junit.Test;
  */
 public class SquareTest extends TestCase {
 
-    private Square square = new Square(0, 0);
+    private ISquare square = new Square(0, 0);
 
     @Test
     public void testClic() throws Exception {

@@ -22,7 +22,7 @@ public class GridTest {
         for (int rowSize = 1; rowSize < MAXROWSIZE; rowSize++) {
             for (int columnSize = 1; columnSize < MAXCOLUMNSIZE; columnSize++) {
                 for (int nbMines = 0; nbMines < rowSize * columnSize; nbMines++) {
-                    Grid grid = new Grid(rowSize, columnSize, nbMines);
+                    IGrid grid = new Grid(rowSize, columnSize, nbMines);
                     // to trigger mine positioning
                     grid.clic(0, 0);
                     Square[][] actualGrid = (Square[][]) grid.getGrid();
@@ -94,7 +94,7 @@ public class GridTest {
 
     @Test
     public void clic() throws Exception {
-        Grid grid = new Grid(3, 3, 2);
+        IGrid grid = new Grid(3, 3, 2);
 
         try {
             grid.clic(-1, 1);
@@ -127,7 +127,7 @@ public class GridTest {
 
     @Test
     public void testFirstClic() throws Exception {
-        Grid grid = new Grid(3, 3, 8);
+        IGrid grid = new Grid(3, 3, 8);
         assertSame(IGrid.GameStatus.STARTED, grid.getStatus());
 
         Square[][] actualGrid = (Square[][]) grid.getGrid();
